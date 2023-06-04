@@ -1,0 +1,27 @@
+[
+    {
+      "title": "Complete Project Proposal",
+      "description": "Write a detailed proposal outlining the project goals, deliverables, and timeline.",
+      "status": "In Progress"
+    },
+    {
+      "title": "Review Design Mockups",
+      "description": "Examine the design mockups provided by the UI team and provide feedback.",
+      "status": "Pending"
+    },
+    {
+      "title": "Implement User Authentication",
+      "description": "Develop a secure user authentication system using encryption algorithms.",
+      "status": "Not Started"
+    },
+    {
+      "title": "Test Application Performance",
+      "description": "Conduct performance testing to identify and resolve any bottlenecks.",
+      "status": "Completed"
+    },
+    {
+      "title": "Refactor Codebase",
+      "description": "Optimize the codebase by removing redundant code and improving code structure.",
+      "status": "In Progress"
+    }
+  ]
