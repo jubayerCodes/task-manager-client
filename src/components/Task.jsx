@@ -15,9 +15,9 @@ const Task = ({ task, index }) => {
             title: 'Update Your Task Status',
             input: 'select',
             inputOptions: {
-                'In Progress': 'In Progress',
                 'Pending': 'Pending',
                 'Not Started': 'Not Started',
+                'In Progress': 'In Progress',
                 'Completed': 'Completed'
             },
             inputAttributes: {
