@@ -23,14 +23,14 @@ const Home = () => {
                             </th>
                             <th>Title</th>
                             <th>Description</th>
-                            <th className='text-center'>Status</th>
+                            <th>Status</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {/* TODO: Replace idx by _id */}
                         {
-                            tasks?.map((task, idx) => <tr key={idx}><Task task={task} index={idx}></Task></tr>)
+                            tasks?.map((task, idx) => <tr key={task._id}><Task task={task} index={idx}></Task></tr>)
                         }
                     </tbody>
                 </table>
