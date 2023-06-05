@@ -86,7 +86,7 @@ const Task = ({ task, index }) => {
             <td>
                 <div className="flex items-center space-x-3">
                     <div>
-                        <div className="font-bold">{title}</div>
+                        <div className={`font-semibold text-lg ${status === 'Completed' && 'line-through'}`}>{title}</div>
                     </div>
                 </div>
             </td>
