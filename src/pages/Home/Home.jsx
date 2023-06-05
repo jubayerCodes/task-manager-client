@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useTasks from '../../hooks/useTasks';
 import Task from '../../components/Task';
 import { useForm } from 'react-hook-form';
@@ -6,29 +6,43 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const Home = () => {
-    const {refetch} = useTasks()
+    const { refetch } = useTasks()
 
-    const required = {}
+    const [limit, setLimit] = useState(false)
 
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = async (data) => {
 
         const task = data
 
-        const res = await axios.post('http://localhost:5000/tasks', task)
+        if (data?.description?.split(' ').length > 30) {
 
-        console.log(res.data);
+            setLimit(true)
+
+            return
+        }
+
+        const res = await axios.post('https://task-manager-server-virid.vercel.app/tasks', task)
 
         if (res.data.insertedId) {
             Swal.fire(
                 'Yay...',
                 'Your task added successfully',
                 'success'
-            ).then(() => refetch())
+            ).then(() => {
+                refetch()
+                setLimit(false)
+            })
         }
         reset()
         window.my_modal_1.close()
     };
+
+    const handleClose = () => {
+        window.my_modal_1.close()
+        reset()
+        setLimit(false)
+    }
 
     const { tasks } = useTasks()
 
@@ -90,14 +104,15 @@ const Home = () => {
                             <div className="input-grp">
                                 <div className="form-control w-full">
                                     <label htmlFor='desc-input' className="label flex-col items-start gap-3">
-                                        <span className="label-text">Description</span>
+                                        <span className="label-text">Description ( 30 words )</span>
                                         <textarea name="description" id="desc-input" className="textarea input-bordered w-full" cols="30" rows="3" placeholder='Task Description' {...register("description")} required></textarea>
+                                        {limit && <span className='text-red-600'>* Your description should be in 30 words</span>}
                                     </label>
                                 </div>
                             </div>
                             <div className="modal-action">
                                 <button className="btn btn-neutral" type='submit'>Add Task</button>
-                                <button className="btn" type='button' onClick={() => window.my_modal_1.close()}>Close</button>
+                                <button className="btn" type='button' onClick={handleClose}>Close</button>
                             </div>
                         </form>
 

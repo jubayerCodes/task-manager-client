@@ -9,7 +9,6 @@ const Task = ({ task, index }) => {
     const { refetch } = useTasks()
 
     const handleUpdateStatus = (id) => {
-        console.log(id);
 
         Swal.fire({
             title: 'Update Your Task Status',
@@ -24,8 +23,7 @@ const Task = ({ task, index }) => {
                 autocapitalize: 'off'
             },
             showCancelButton: true,
-            confirmButtonText: 'Update',
-            showLoaderOnConfirm: true
+            confirmButtonText: 'Update'
         }).then(async (result) => {
 
 
@@ -33,24 +31,23 @@ const Task = ({ task, index }) => {
 
                 const status = { status: result.value }
 
-                const res = await axios.patch(`http://localhost:5000/tasks/${id}`, status)
+                const res = await axios.patch(`https://task-manager-server-virid.vercel.app/tasks/${id}`, status)
 
                 const data = res.data
 
-                console.log(data);
-
-                Swal.fire(
-                    'Status Updated!',
-                    'Your task has been updated.',
-                    'success'
-                ).then(() => refetch())
+                if (data.modifiedCount > 0) {
+                    Swal.fire(
+                        'Status Updated!',
+                        'Your task has been updated.',
+                        'success'
+                    ).then(() => refetch())
+                }
             }
         })
 
     }
 
     const handleDelete = (id) => {
-        console.log(id);
 
         Swal.fire({
             title: 'Are you sure?',
@@ -63,7 +60,7 @@ const Task = ({ task, index }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
 
-                const res = await axios.delete(`http://localhost:5000/tasks/${id}`)
+                const res = await axios.delete(`https://task-manager-server-virid.vercel.app/tasks/${id}`)
 
                 const data = res.data
 
