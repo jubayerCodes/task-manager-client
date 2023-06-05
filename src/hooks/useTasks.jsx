@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 
 const useTasks = () => {
+
 
     const { data: tasks = [], refetch } = useQuery({
         queryKey: ['tasks'],
@@ -11,7 +12,11 @@ const useTasks = () => {
             return res.data
         }
     })
-    return { tasks, refetch };
+
+    const completedTasks = tasks.filter(task => task.status === 'Completed')
+    const InCompletedTasks = tasks.filter(task => task.status !== 'Completed')
+
+    return { tasks, completedTasks, InCompletedTasks, refetch };
 };
 
 export default useTasks;

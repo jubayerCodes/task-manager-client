@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useTasks from '../../hooks/useTasks';
 import Task from '../../components/Task';
 import { useForm } from 'react-hook-form';
@@ -6,7 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const Home = () => {
-    const { refetch } = useTasks()
+    const { tasks, completedTasks, InCompletedTasks, refetch } = useTasks()
 
     const [limit, setLimit] = useState(false)
 
@@ -44,7 +44,7 @@ const Home = () => {
         setLimit(false)
     }
 
-    const { tasks } = useTasks()
+
 
     return (
         <section className='max-w-[1200px] mx-auto my-28'>
@@ -66,7 +66,11 @@ const Home = () => {
                     </thead>
                     <tbody>
                         {
-                            tasks?.map((task, idx) => <tr key={task._id}><Task task={task} index={idx}></Task></tr>)
+                            completedTasks?.map((task, idx) => <tr key={task._id}><Task task={task} index={idx}></Task></tr>)
+                        }
+
+                        {
+                            InCompletedTasks?.map((task, idx) => <tr key={task._id}><Task task={task} index={idx}></Task></tr>)
                         }
                     </tbody>
                 </table>
